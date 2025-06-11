@@ -12,10 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('etudiant_inscrits', function (Blueprint $table) {
-            $table->id('id_etudiantins'); // Correspond à l'id de l'étudiant
-            $table->date('date_inscription');
-            $table->integer('annee_inscription');
-            $table->string('statut')->default('actif');
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('nom_et');
+            $table->string('prenom_et');
+            $table->string('email_et');
+            $table->string('tel_et');
+            $table->string('mdp_et');
+            $table->enum('sexe', ['M', 'F']);
             $table->timestamps();
         });
     }

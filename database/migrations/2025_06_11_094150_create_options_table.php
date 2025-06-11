@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('matieres', function (Blueprint $table) {
+       Schema::create('options', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('filiere_id')->constrained('filieres');
-            $table->string('libelle');
-            $table->string('code')->unique();
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->text('libelle_op');
+            $table->boolean('correct');
+            $table->integer('ordre_op');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matieres');
+        Schema::dropIfExists('options');
     }
 };

@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('professeur_inscrits', function (Blueprint $table) {
-            $table->id('id_prof'); // Correspond à l'id du professeur
-            $table->date('date_inscription');
-            $table->string('statut')->default('actif');
-            $table->text('bio')->nullable();
+        Schema::create('administrateurs', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('email_admin');
+            $table->string('mdp_admin');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('professeur_inscrits');
+        Schema::dropIfExists('administrateurs');
     }
 };

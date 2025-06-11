@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+       Schema::create('questions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('matiere_id');
+            $table->foreign('matiere_id')->references('id')->on('matieres')->onDelete('cascade');
+            $table->text('intitule');
+            $table->boolean('obligue');
+            $table->integer('ordre');
+            $table->string('type_ques');
             $table->timestamps();
         });
     }
@@ -22,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('questions');
     }
 };

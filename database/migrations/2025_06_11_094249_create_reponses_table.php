@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('reponses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('composer_id')->constrained('composers');
-            $table->foreignId('question_id')->constrained('questions');
-            $table->text('reponse_texte')->nullable();
-            $table->decimal('point_obtenu', 5, 2)->nullable();
+            $table->unsignedBigInteger('etudiant_inscrit_id');
+            $table->foreign('etudiant_inscrit_id')->references('id')->on('etudiant_inscrits')->onDelete('cascade');
+            $table->unsignedBigInteger('question_id');
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->text('reponse');
+            $table->integer('point_obtenu');
             $table->timestamps();
         });
     }

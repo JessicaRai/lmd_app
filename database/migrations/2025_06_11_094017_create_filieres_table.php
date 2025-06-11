@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('filieres', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
-            $table->string('code')->unique();
-            $table->integer('effectif')->default(0);
-            $table->string('niveau'); // ex: Licence 1, Master 2
+            $table->string('libelle_fil');
+            $table->string('niveau');
+            $table->integer('effectif');
+            $table->string('code_fil');
             $table->timestamps();
         });
     }

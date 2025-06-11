@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Filiere extends Model
 {
     use HasFactory;
+    protected $fillable = ['libelle', 'code', 'effectif', 'niveau'];
+
+    public function matieres()
+    {
+        return $this->hasMany(Matiere::class);
+    }
+
+    public function etudiants()
+    {
+        return $this->hasMany(Etudiant::class);
+    }
 }

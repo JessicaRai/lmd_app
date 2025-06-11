@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('composers', function (Blueprint $table) {
+       Schema::create('composer', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('epreuve_id')->constrained('epreuves');
-            $table->foreignId('etudiant_id')->constrained('etudiants');
+            $table->unsignedBigInteger('etudiant_inscrit_id');
+            $table->foreign('etudiant_inscrit_id')->references('id')->on('etudiant_inscrits')->onDelete('cascade');
             $table->date('date_comp');
-            $table->enum('statut_comp', ['en cours', 'terminé'])->default('en cours');
-            $table->decimal('note', 5, 2)->nullable();
-            $table->integer('temps')->nullable(); // temps en secondes
+            $table->string('statut_comp');
+            $table->integer('temps');
+            $table->float('note');
+            $table->text('obs');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('composers');
+        Schema::dropIfExists('composer');
     }
 };

@@ -11,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('annees', function (Blueprint $table) {
+        Schema::create('professeur_inscrits', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle')->unique(); // ex: "2023-2024"
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('nom_prof');
+            $table->string('prenom_prof');
+            $table->string('tel_prof');
             $table->timestamps();
         });
     }
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('annees');
+        Schema::dropIfExists('professeur_inscrits');
     }
 };

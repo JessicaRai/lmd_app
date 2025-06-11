@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('options', function (Blueprint $table) {
+        Schema::create('matieres', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_id')->constrained('questions');
-            $table->text('libelle_op');
-            $table->boolean('correct')->default(false);
+            $table->unsignedBigInteger('filiere_id');
+            $table->foreign('filiere_id')->references('id')->on('filieres')->onDelete('cascade');
+            $table->string('code_mat');
+            $table->string('libelle_mat');
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('options');
+        Schema::dropIfExists('matiere');
     }
 };
